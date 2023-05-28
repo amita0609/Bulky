@@ -1,0 +1,40 @@
+﻿@using BulkyBook.Utility;
+@model RoleManagementVM
+
+<form method="post">
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<h2 class="text-primary">Manage User Role</h2>
+			<hr />
+		</div>
+		@*<div asp-validation-summary="All"></div>*@
+		<div class="mb-3">
+			<label asp-for="ApplicationUser.Name" readonly></label>
+			<input asp-for="ApplicationUser.Name" class="form-control" />
+		
+		</div>
+		<div class="mb-3">
+			<select asp-for="ApplicationUser.Role" asp-items="@Model.RoleList" class="form-select"></select>
+		</div>
+		@{
+			var companyVisible = "display:none;";
+		}
+		@if (Model.ApplicationUser.Role == SD.Role_Company)
+		{
+			 companyVisible = "display:block;";
+		}
+		<div class="mb-3">
+			<select asp-for="ApplicationUser.CompanyId" style="@companyVisible" asp-items="@Model.CompanyList" class="form-select"></select>
+		</div>
+		<button type="submit" class="btn btn-primary" style="width:150px">Update ROLE</button>
+		<a asp-action="Index" class="btn btn-secondary" style="width:150px">
+			Back to List
+		</a>
+	</div>
+</form>
+
+@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+}

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+﻿using BulkyBook.Models.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,9 +40,9 @@ namespace BulkyBook.Models
         [Range(1, 10000)]
         public double Price100 { get; set; }
 
-        [Required]
-        [ValidateNever]
-        public  string ImageUrl { get; set; }
+        //[Required]
+        //[ValidateNever]
+        //public  string ImageUrl { get; set; }
 
 
         [Required]
@@ -50,7 +51,7 @@ namespace BulkyBook.Models
         [ValidateNever]
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
-
-       
+        [ValidateNever]
+       public List<ProductImage> ProductImages { get; set; }
     }
 }

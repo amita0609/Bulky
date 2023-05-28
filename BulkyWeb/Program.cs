@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using BulkyBook.Utility;
 using Stripe;
+using BulkyBook.DataAccess.DbInitializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,11 +35,22 @@ builder.Services.AddSession(options =>
 	options.Cookie.IsEssential = true;
 });
 
-
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IEmailSender,EmailSender>();
 
+//builder.Services.AddAuthentication().AddFacebook(option =>
+//{
+//    option.AppId = "";
+//    option.AppSecret = "";
+//});
+
+builder.Services.AddAuthentication().AddMicrosoftAccount(option =>
+{
+    option.ClientId = "1a0844b0-6b2b-43ed-930a-da4f91df886b";
+    option.ClientSecret = "s8Y8Q~Pqom5OxFg1R4_jLYfc-rmeju9Q-q~UDarM";
+});
 
 var app = builder.Build();
 
@@ -64,3 +76,12 @@ app.MapControllerRoute(
     pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+void SeedDatabase()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        dbInitializer.Initialize();
+    }
+}

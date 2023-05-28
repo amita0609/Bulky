@@ -1,4 +1,5 @@
-﻿using BulkyBook.DataAccess.Data;
+﻿
+using BulkyBook.DataAccess.Data;
 using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models.Models;
 using System;
@@ -18,5 +19,9 @@ namespace BulkyBook.DataAccess.Repository
 			_db = db;
 		}
 
-	}
+        public void Update(ApplicationUser applicationUser)
+        {
+           _db.ApplicationUsers.Update(applicationUser);
+        }
+    }
 }

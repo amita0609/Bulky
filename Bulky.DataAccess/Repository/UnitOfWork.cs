@@ -23,6 +23,9 @@ namespace BulkyBook.DataAccess.Repository
 		public IOrderHeaderRepository _orderHeaderRepository { get; private set; }
         public IOrderDetailRepository _orderDetailRepository { get; private set; }
 
+		public IProductImageRepository _productImageRepository { get; private set; }
+
+
 		public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
@@ -33,6 +36,7 @@ namespace BulkyBook.DataAccess.Repository
 			_applicationUserRepository=new ApplicationUserRepository(_db);
             _orderDetailRepository = new OrderDetailRepository(_db);
 			_orderHeaderRepository=new OrderHeaderRepository(_db);
+			_productImageRepository=new ProductImageRepository(_db);
 		}
        
 
